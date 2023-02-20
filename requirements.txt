@@ -1,5 +1,4 @@
 adal==1.2.7
-adlfs==2022.9.1
 aiohttp==3.8.1
 aiosignal==1.2.0
 asgiref==3.5.2
