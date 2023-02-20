@@ -1,0 +1,150 @@
+{% extends "DQF/base.html" %}
+{% block content %}
+<br>
+<br>
+<div class="col-md-7">
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">Add Config Record</h3>
+      <p class="RedAlert" style="color: red">All (*) marked fields are mandatory </p>
+  </div>
+  <form role="form" id="config_add_form" method="POST" action="{% url 'add_config' %}" class="post-form">
+    {% csrf_token %}
+     <div class="box-body">
+         <div class="form-group">
+            <label><span style="color: red">*</span>Rule Name</label>
+             <select name="rule_name" id="rule_name" class="form-control">
+                <option value="" selected>--select-- </option>
+                <option value="boolean_check">boolean_check</option>
+                <option value="char_check">char_check</option>
+                <option value="column_length_check">column_length_check</option>
+                <option value="date_format_check">date_format_check</option>
+                <option value="decimal_check">decimal_check</option>
+                <option value="file_availability_check">file_availability_check</option>
+                <option value="file_col_count_check">file_col_count_check</option>
+                <option value="file_content_check">file_content_check</option>
+                <option value="file_count_check">file_count_check</option>
+                <option value="file_extension">file_extension</option>
+                <option value="file_folder_availability_check">file_folder_availability_check</option>
+                <option value="file_size">file_size</option>
+                <option value="header_pattern_check">header_pattern_check</option>
+                <option value="int_check">int_check</option>
+                <option value="lst_values_check">lst_values_check</option>
+                <option value="not_null">not_null</option>
+                <option value="pattern_check">pattern_check</option>
+                <option value="relationship">relationship</option>
+                <option value="timestamp_check">timestamp_check</option>
+                <option value="unique">unique</option>
+                <option value="varchar_check">varchar_check</option>
+                </select>
+         </div>
+         <div class="form-group" >
+                <label><span style="color: red">*</span>Rule Action Type</label>
+                <select name="rule_action_type" id="rule_action_type" class="form-control">
+                    <option value="" selected>--select-- </option>
+                    <option value="file">file</option>
+                    <option value="table">table</option>
+                </select>
+         </div>
+         <div class="form-group" >
+            <label></label>Source File Location</label>
+            <select name="Source_file_location" id="Source_file_location" class="form-control">
+                <option value="" selected>--select-- </option>
+                <option value="local">local</option>
+                <option value="adls">azure datalake</option>
+            </select>
+        </div>
+        <div class="form-group" >
+            <label><span style="color: red">*</span>Active Flag</label>
+            <select name="ACTIVE_FLAG" id="ACTIVE_FLAG" class="form-control">
+                <option value="" selected>--select-- </option>
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+            </select>
+        </div>
+        <div class="form-group" >
+            <label><span style="color: red">*</span>DQ_CHECK_STAGE</label>
+            <select name="DQ_CHECK_STAGE" id="DQ_CHECK_STAGE" class="form-control">
+                <option value="" selected>--select-- </option>
+                <option value="warning">warning</option>
+                <option value="error">error</option>
+            </select>
+        </div>
+        <div class="form-group" >
+            <label>Validation Table</label>
+            <input type="text" name="validation_table" class="form-control" value="{{ data.validation_table }}" maxlength="30">
+        </div>
+        <div class="form-group" >
+            <label>Validation Column</label>
+            <input type="text" name="validation_column" class="form-control" value="{{ data.validation_column }}" maxlength="30">
+        </div>
+        <div class="form-group" >
+            <label>Source File</label>
+            <input type="text" name="source_file" class="form-control" value="{{ data.source_file }}" maxlength="30">
+        </div>
+        <div class="form-group" >
+            <label>Exec_Parameter_Template</label>
+            <input type="text" name="Exec_Parameter_Template" class="form-control" value="{{ data.Exec_Parameter_Template }}" disabled>
+        </div>
+        <div class="form-group" >
+            <label>Exec_Parameter</label>
+            <input type="text" name="Exec_Parameter" class="form-control" value="{{ data.Exec_Parameter }}" maxlength="30">
+        </div>
+        <div class="form-group" >
+            <label>Platform</label>
+            <select name="Platform" id="Platform" class="form-control">
+                <option value="" selected>--select-- </option>
+                <option value="synapse">Synapse</option>
+                <option value="snowflake">Snowflake</option>
+            </select>
+        </div>
+        <div class="form-group" >
+            <label>Detailed Output</label>
+            <select name="detailed_output" id="detailed_output" class="form-control">
+                <option value="" selected>--select-- </option>
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+            </select>
+        </div>
+     </div>
+    <div class="box-footer" style="display:inline-block">
+        <div class="w3-show-inline-block" style="display:inline-block">
+            <div class="w3-bar" style="display:inline-block">
+                <button id="btn1" type="submit" class="btn btn-info">Add</button>
+                <br>
+                <button href="{% url 'config_list' %}" id="btn2" type="submit" class="btn btn-info">cancel</button>
+
+            </div>
+        </div>
+    </div>
+  </form>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script>
+$( "#config_add_form" ).validate({
+  rules: {
+    rule_name: {
+        required: true,
+    },
+    rule_action_type: {
+        required: true,
+    },
+    ACTIVE_FLAG: {
+        required: true,
+    },
+    DQ_CHECK_STAGE: {
+        required: true,
+    },
+  }
+});
+</script>
+<style>
+    form label.error, form input.submit {
+        color: red;
+    }
+    w3-bar{display:inline-block;width:auto}
+</style>
+{% endblock %}

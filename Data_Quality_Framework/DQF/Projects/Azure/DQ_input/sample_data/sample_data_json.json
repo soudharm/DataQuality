@@ -1,0 +1,10 @@
+[
+{"Account_Id":"1","Status":"Y","Delivery Time":"12:12","Quantity":"1","Customer Name":"John","Sales Date":"2000-04-30"},
+{"Account_Id":"2","Status":"Y","Delivery Time":"12:13","Quantity":"2","Customer Name":"Adam","Sales Date":"23-12-2022"},
+{"Account_Id":"","Status":"YYY","Delivery Time":"12:14","Quantity":"10","Customer Name":"","Sales Date":"23/12/2023"},
+{"Account_Id":"9","Status":"Y","Delivery Time":"12:15","Quantity":"1","Customer Name":"1","Sales Date":"23/12/2024"},
+{"Account_Id":"4","Status":"N","Delivery Time":"19:42:49","Quantity":"3","Customer Name":"shinde","Sales Date":"2001-05-31"},
+{"Account_Id":"4","Status":"Y","Delivery Time":"19:42:50","Quantity":"5","Customer Name":"supriya","Sales Date":"23-12-2026"},
+{"Account_Id":"6","Status":"N","Delivery Time":"","Quantity":"ABC","Customer Name":"Ashwin","Sales Date":"23-11-2011"},
+{"Account_Id":"3","Status":"1","Delivery Time":"xyz","Quantity":"2","Customer Name":"Athreya","Sales Date":"23-11-2016"}
+]

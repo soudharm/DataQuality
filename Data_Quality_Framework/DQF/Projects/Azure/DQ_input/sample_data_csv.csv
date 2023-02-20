@@ -1,0 +1,9 @@
+Account_Id,Status,Delivery Time,Quantity,Customer Name,Sales Date
+1,Y,12:12,1,John,4/30/2000
+2,,12:13,2,Adam,23-12-2022
+,YYY,12:14,10,Vaibhav,23/12/2023
+9,Y,12:15,1,1,23/12/2024
+4,N,19:42:49,3,shinde,5/31/2001
+4,Y,19:42:50,5,supriya,23-12-2026
+6,N,,ABC,Ashwin,23-11-2011
+3,1,xyz,2,Athreya,23-11-2016

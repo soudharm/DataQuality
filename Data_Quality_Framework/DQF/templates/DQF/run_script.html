@@ -1,0 +1,65 @@
+{% extends "DQF/base.html" %}
+{% block content %}
+<div class="col-md-7">
+<div class="box box-info">
+  <div class="box-header with-border"><br>
+    <h3 class="box-title">Execute the script</h3>
+      <p class="RedAlert" style="color: red">All (*) marked fields are mandatory </p>
+  </div>
+  <div>
+  </div>
+  <form role="form" id="run_script_form" method="POST" action="{% url 'run_script' %}" class="post-form">
+      {% csrf_token %}
+     <div class="box-body">
+        <div class="form-group">
+        <label for="project"><span style="color: red">*</span>Projects </label>
+            <select name="project" id="project" class="form-control">
+                <option value="" disabled="true" selected>--select-- </option>
+                {% for i in project_data %}
+                    <option value={{i}}>{{ i }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="source_type">Data Source Type </label>
+                <select name="source_type" id="source_type" class="form-control">
+                <option value="" selected>--select-- </option>
+                <option value="file">File</option>
+                <option value="table">Table</option>
+                </select>
+        </div>
+        <div class="form-group">
+            <label>Data Source Name</label>
+            <input type="text" name="source_name" class="form-control">
+         </div>
+        <div class="form-group">
+            <label for="config_location">Config File Location :</label>
+                <select name="config_location" id="config_location"  class="form-control">
+                <option value="" selected>--select-- </option>
+                <option value="s3">AWS S3</option>
+                <option value="adls">Azure Datalake</option>
+                </select>
+        </div>
+            <button type="submit" value="Execute Script" class="btn btn-primary submit_btn">RUN</button>
+     </div>
+  </form>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script>
+$( "#run_script_form" ).validate({
+  rules: {
+    project: {
+        required: true,
+    },
+  }
+});
+</script>
+<style>
+    form label.error, form input.submit {
+        color: red;
+    }
+</style>
+{% endblock %}

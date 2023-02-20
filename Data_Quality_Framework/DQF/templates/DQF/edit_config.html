@@ -1,0 +1,139 @@
+{% extends "DQF/base.html" %}
+{% block content %}
+<br>
+<div class="col-md-7">
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">Edit Config Record</h3>
+      <p class="RedAlert" style="color: red">All (*) marked fields are mandatory </p>
+  </div>
+    <form role="form" method="POST" id="config_form" class="post-form">
+        {% csrf_token %}
+        <div class="box-body">
+            <div class="form-group" >
+                <label><span style="color: red">*</span>Rule Name</label>
+                <select name="rule_name" id="rule_name" class="form-control">
+                    <option value="" selected>--select-- </option>
+                    <option value="boolean_check" {% if data.rule_name == 'boolean_check' %} selected="selected"{% endif %}>boolean_check</option>
+                    <option value="char_check" {% if data.rule_name == 'char_check' %} selected="selected"{% endif %}>char_check</option>
+                    <option value="column_length_check" {% if data.rule_name == 'column_length_check' %} selected="selected"{% endif %}>column_length_check</option>
+                    <option value="date_format_check" {% if data.rule_name == 'date_format_check' %} selected="selected"{% endif %}>date_format_check</option>
+                    <option value="decimal_check" {% if data.rule_name == 'decimal_check' %} selected="selected"{% endif %}>decimal_check</option>
+                    <option value="file_availability_check" {% if data.rule_name == 'file_availability_check' %} selected="selected"{% endif %}>file_availability_check</option>
+                    <option value="file_col_count_check" {% if data.rule_name == 'file_col_count_check' %} selected="selected"{% endif %}>file_col_count_check</option>
+                    <option value="file_content_check" {% if data.rule_name == 'file_content_check' %} selected="selected"{% endif %}>file_content_check</option>
+                    <option value="file_count_check" {% if data.rule_name == 'file_count_check' %} selected="selected"{% endif %}>file_count_check</option>
+                    <option value="file_extension" {% if data.rule_name == 'file_extension' %} selected="selected"{% endif %}>file_extension</option>
+                    <option value="file_folder_availability_check" {% if data.rule_name == 'file_folder_availability_check' %} selected="selected"{% endif %}>file_folder_availability_check</option>
+                    <option value="file_size" {% if data.rule_name == 'file_size' %} selected="selected"{% endif %}>file_size</option>
+                    <option value="header_pattern_check" {% if data.rule_name == 'header_pattern_check' %} selected="selected"{% endif %}>header_pattern_check</option>
+                    <option value="int_check" {% if data.rule_name == 'int_check' %} selected="selected"{% endif %}>int_check</option>
+                    <option value="lst_values_check" {% if data.rule_name == 'lst_values_check' %} selected="selected"{% endif %}>lst_values_check</option>
+                    <option value="not_null" {% if data.rule_name == 'not_null' %} selected="selected"{% endif %}>not_null</option>
+                    <option value="pattern_check" {% if data.rule_name == 'pattern_check' %} selected="selected"{% endif %}>pattern_check</option>
+                    <option value="relationship" {% if data.rule_name == 'relationship' %} selected="selected"{% endif %}>relationship</option>
+                    <option value="timestamp_check" {% if data.rule_name == 'timestamp_check' %} selected="selected"{% endif %}>timestamp_check</option>
+                    <option value="unique" {% if data.rule_name == 'unique' %} selected="selected"{% endif %}>unique</option>
+                    <option value="varchar_check" {% if data.rule_name == 'varchar_check' %} selected="selected"{% endif %}>varchar_check</option>
+                </select>
+            </div>
+            <div class="form-group" >
+                <label><span style="color: red">*</span>Rule Action Type</label>
+                <select name="rule_action_type" id="rule_action_type" class="form-control">
+                    <option value="" selected>--select-- </option>
+                    <option value="file" {% if data.rule_action_type == 'file' %} selected="selected"{% endif %}>file</option>
+                    <option value="table" {% if data.rule_action_type == 'table' %} selected="selected"{% endif %}>table </option>
+                </select>
+            </div>
+            <div class="form-group" >
+                <label></label>Source File Location</label>
+                <select name="Source_file_location" id="Source_file_location" class="form-control">
+                    <option value="" selected>--select-- </option>
+                    <option value="local"{% if data.Source_file_location == 'local' %} selected="selected"{% endif %}>local</option>
+                    <option value="adls"{% if data.Source_file_location == 'adls' %} selected="selected"{% endif %}>azure datalake</option>
+                </select>
+            </div>
+            <div class="form-group" >
+                <label><span style="color: red">*</span>Active Flag</label>
+                    <select name="ACTIVE_FLAG" id="ACTIVE_FLAG" class="form-control">
+                        <option value="" selected>--select-- </option>
+                        <option value="Y" {% if data.ACTIVE_FLAG == 'Y' %} selected="selected"{% endif %}>Yes</option>
+                        <option value="N" {% if data.ACTIVE_FLAG == 'N' %} selected="selected"{% endif %}>No</option>
+                    </select>
+            </div>
+            <div class="form-group" >
+                <label><span style="color: red">*</span>DQ_CHECK_STAGE</label>
+                <select name="DQ_CHECK_STAGE" id="DQ_CHECK_STAGE" class="form-control">
+                    <option value="" selected>--select-- </option>
+                    <option value="warning" {% if data.DQ_CHECK_STAGE == 'warning' %} selected="selected"{% endif %}>warning</option>
+                    <option value="error" {% if data.DQ_CHECK_STAGE == 'error' %} selected="selected"{% endif %}>error</option>
+                </select>
+            </div>
+            <div class="form-group" >
+                <label>Validation Table</label>
+                <input type="text" name="validation_table" class="form-control" value="{{ data.validation_table }}" maxlength="30">
+            </div>
+            <div class="form-group" >
+                <label>Validation Column</label>
+                <input type="text" name="validation_column" class="form-control" value="{{ data.validation_column }}" maxlength="30">
+            </div>
+            <div class="form-group" >
+                <label>Source File</label>
+                <input type="text" name="source_file" class="form-control" value="{{ data.source_file }}" maxlength="30">
+            </div>
+            <div class="form-group" >
+                <label>Exec_Parameter_Template</label>
+                <input type="text" name="Exec_Parameter_Template" class="form-control" {% if data.Exec_Parameter_Template == 0.0 %} value="None" {% else %} value = "{{data.Exec_Parameter_Template}}" {% endif %} disabled>
+            </div>
+            <div class="form-group" >
+                <label>Platform</label>
+                <select name="Platform" id="Platform" class="form-control">
+                    <option value="" selected>--select-- </option>
+                    <option value="synapse" {% if data.Platform == 'synapse' %} selected="selected"{% endif %}>Synapse</option>
+                    <option value="snowflake" {% if data.Platform == 'snowflake' %} selected="selected"{% endif %}>Snowflake</option>
+                </select>
+            </div>
+            <div class="form-group" >
+                <label><span style="color: red">*</span>Detailed Output</label>
+                    <select name="detailed_output" id="detailed_output" class="form-control">
+                        <option value="" selected>--select-- </option>
+                        <option value="Y" {% if data.detailed_output == 'Y' %} selected="selected"{% endif %}>Yes</option>
+                        <option value="N" {% if data.detailed_output == 'N' %} selected="selected"{% endif %}>No</option>
+                    </select>
+            </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary" style="text-align: center;"/>
+                <br>
+                <a href="{% url 'config_list' %}" class="btn btn-primary">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script>
+$( "#config_form" ).validate({
+  rules: {
+    rule_name: {
+        required: true,
+    },
+    rule_action_type: {
+        required: true,
+    },
+    ACTIVE_FLAG: {
+        required: true,
+    },
+    DQ_CHECK_STAGE: {
+        required: true,
+    },
+  }
+});
+</script>
+<style>
+    form label.error, form input.submit {
+        color: red;
+    }
+</style>
+{% endblock %}

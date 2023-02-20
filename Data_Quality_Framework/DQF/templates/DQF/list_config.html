@@ -1,0 +1,67 @@
+{% extends "DQF/base.html" %}
+{% block content %}
+<div class="col-md-12">
+    <div class="box box-info">
+        <div class="page-header">
+            <div class="container-fluid">
+<!--                <div class="pull-right">-->
+<!--                    <a href="{% url 'add_config' %}" title class="btn btn-info">Add</a>-->
+<!--                </div>-->
+                <br>
+                <h4>Config Data</h4>
+            </div>
+        </div>
+        <table  class="table table-striped table-bordered table-lg">
+        <thead class="thead-dark">
+            <div>
+                 <tr>
+                    <th>Rule Name</th>
+                    <th>Rule Action Type</th>
+                    <th>Active Flag</th>
+                    <th>Validation Table</th>
+                    <th>Validation File</th>
+                    <th>Validation Column</th>
+                    <th>Execution Parameter</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                 </tr>
+            </div>
+        </thead>
+        <tbody>
+            {% for data in page_obj %}
+            <tr>
+                <td>{{ data.rule_name }}</td>
+                <td>{{ data.rule_action_type }}</td>
+                <td>{{ data.ACTIVE_FLAG }}</td>
+                <td>{{ data.validation_table }}</td>
+                <td>{{ data.source_file }}</td>
+                <td>{{ data.validation_column }}</td>
+                <td>{{ data.Exec_Parameter }}</td>
+                <td><a class="btn btn-info" href="{% url 'edit_config' data.config_id %}">Edit</a></td>
+                <td><a class="btn btn-danger" href="{% url 'delete_config' data.config_id %}"
+                       onclick="return confirm('Are you sure you want to delete?')"
+                       type="button" >Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+      <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
