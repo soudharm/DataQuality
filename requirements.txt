@@ -3,11 +3,11 @@ adlfs==2022.9.1
 aiohttp==3.8.1
 aiosignal==1.2.0
 asgiref==3.5.2
-asn1crypto==1.5.1
+
 async-timeout==4.0.2
 attrs==22.1.0
-azure-ai-textanalytics==5.1.0
-azure-cognitiveservices-speech==1.20.0
+
+
 azure-common==1.1.28
 azure-core==1.25.0
 azure-datalake-store==0.0.52
@@ -22,7 +22,7 @@ cffi==1.15.1
 chardet==4.0.0
 charset-normalizer==2.0.1
 colorama==0.4.5
-cryptography==36.0.2
+
 cycler==0.11.0
 DataProfiler==0.7.10
 decorator==4.4.2
