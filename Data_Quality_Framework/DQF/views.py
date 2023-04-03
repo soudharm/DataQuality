@@ -8,10 +8,14 @@ from django.contrib.auth import logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, login
+from azure.storage.blob import BlobServiceClient
+import argparse
+import configparser as cp
 #from .forms import UserRegistrationForm
 import os
 from django.shortcuts import render
 from django.contrib.messages.views import messages
+from django.contrib import messages
 import sys
 from subprocess import Popen, PIPE
 from django.http import HttpResponse, HttpResponseRedirect
@@ -75,6 +79,26 @@ def SignupPage(request):
 
     return render(request, 'DQF/signup.html')
 
+def upload_config():
+    project_path = r'C:\Users\soupatil\PycharmProjects\deloitte\Data_Quality_Framework\DQF\Projects\Azure'
+    conf_obj = cp.ConfigParser()
+    full_path = os.path.join(project_path, "config") + r"\framework_config.ini"
+    conf_obj.read(full_path)
+
+    connection_string = conf_obj["Config_Upload"]["connection_string"]
+    my_container = conf_obj["Config_Upload"]["my_container"]
+    cofig_file_path=conf_obj["Config_Upload"]["cofig_file_path"]
+    my_blob = "Config_Rule.xlsx"
+
+    blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+    container_client = blob_service_client.get_container_client(my_container)
+    blob_client = container_client.get_blob_client(my_blob)
+
+    # full_path=os.path.join("C:/Users/soupatil/Downloads/Data_Quality_Framework_Tool (1)/Data_Quality_Framework_Tool/DQF/Projects/Salesforce/DQ_output/", "Projects")
+
+    with open(cofig_file_path, "rb") as data:
+        blob_client.upload_blob(data,overwrite=True)
+
 
 def LoginPage(request):
     if request.method == 'POST':
@@ -116,7 +140,7 @@ def add_config(request):
         with pd.ExcelWriter(cofig_file_path,mode='a',engine='openpyxl',if_sheet_exists='overlay') as writer:
             df.to_excel(writer,sheet_name='DQ_RULE_CONFIG',index=False)
             writer.save()
-        #upload_config()
+        upload_config()
         messages.success(request, 'Record Added successfully.')
         return HttpResponseRedirect(reverse('config_list'))
     else:
@@ -143,7 +167,7 @@ def edit_config(request, id):
         with pd.ExcelWriter(cofig_file_path, mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
             df.to_excel(writer, sheet_name='DQ_RULE_CONFIG', index=False)
             writer.save()
-        #upload_config()
+        upload_config()
         return HttpResponseRedirect(reverse('config_list'))
     else:
         data = df.loc[df['config_id'] == id]
@@ -161,7 +185,7 @@ def delete_config(request, id):
     with pd.ExcelWriter(cofig_file_path, mode='a', engine='openpyxl', if_sheet_exists='replace') as writer:
         df.to_excel(writer, sheet_name='DQ_RULE_CONFIG', index=False)
         writer.save()
-    #upload_config()
+    upload_config()
     messages.success(request, 'Record Deleted successfully.')
     return HttpResponseRedirect(reverse('config_list'))
 
@@ -240,4 +264,5 @@ def run_script(request):
             return HttpResponse(e)
         messages.success(request, 'Script Executed Successfully')
         return HttpResponseRedirect(reverse('run_script'))
+        messages.success(request, 'Script Executed Successfully')
         # return HttpResponse('Script Executed Successfully')

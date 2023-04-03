@@ -185,7 +185,7 @@ def char_datatype_check(config_id, rule_id, dataset, validation_column, source_f
     char_count = 0
     detailed_list = []
     dq_check_action_flag = False
-    for i in dataset.index:
+    for i in dataset:
         val = dataset[validation_column][i]
         if isinstance(val, str) and len(val) == 1:
             try:

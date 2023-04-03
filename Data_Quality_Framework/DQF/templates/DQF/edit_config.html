@@ -86,6 +86,10 @@
                 <input type="text" name="Exec_Parameter_Template" class="form-control" {% if data.Exec_Parameter_Template == 0.0 %} value="None" {% else %} value = "{{data.Exec_Parameter_Template}}" {% endif %} disabled>
             </div>
             <div class="form-group" >
+                <label>Exec_Parameter</label>
+                <input type="text" name="Exec_Parameter" class="form-control" value="{{ data.Exec_Parameter }}" maxlength="30">
+            </div>
+            <div class="form-group" >
                 <label>Platform</label>
                 <select name="Platform" id="Platform" class="form-control">
                     <option value="" selected>--select-- </option>

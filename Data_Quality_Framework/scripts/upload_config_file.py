@@ -14,7 +14,7 @@ import pathlib
 #from DQF.main import read_args
 
 
-#from DQF.main import folder_paths
+#from Data_Quality_Framework.main import folder_paths
 
 def upload_config():
     project_path = folder_paths()

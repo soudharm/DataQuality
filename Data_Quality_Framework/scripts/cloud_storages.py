@@ -30,22 +30,22 @@ def establish_db_conn(conf_obj, table_name, platform_name):
     """
     conn = ""
     try:
-        if platform_name == 'snowflake':
-            account_name = conf_obj["DB_Connection"]["snowflake_account"]
-            # user_name = get_credentials("snowflakeusername")
-            # password = get_credentials("snowflakepassword")
-            user_name = "DATAQUALITY"
-            password = "Admin@123"
-            database = conf_obj["DB_Connection"]["snowflake_database"]
-            warehouse = conf_obj["DB_Connection"]["snowflake_warehouse"]
-            conn = snowflake.connector.connect(
-                account=account_name,
-                user=user_name,
-                password=password,
-                database=database,
-                warehouse=warehouse
-            )
-        elif platform_name == 'synapse':
+        # if platform_name == 'snowflake':
+        #     account_name = conf_obj["DB_Connection"]["snowflake_account"]
+        #     # user_name = get_credentials("snowflakeusername")
+        #     # password = get_credentials("snowflakepassword")
+        #     user_name = "DATAQUALITY"
+        #     password = "Admin@123"
+        #     database = conf_obj["DB_Connection"]["snowflake_database"]
+        #     warehouse = conf_obj["DB_Connection"]["snowflake_warehouse"]
+        #     conn = snowflake.connector.connect(
+        #         account=account_name,
+        #         user=user_name,
+        #         password=password,
+        #         database=database,
+        #         warehouse=warehouse
+        #     )
+        if platform_name == 'synapse':
             server = conf_obj["DB_Connection"]["synapse_server"]
             database = conf_obj["DB_Connection"]["synapse_database"]
             username = get_credentials("synapseusername")
@@ -129,42 +129,42 @@ def connect_aws_storage(conf_obj):
         print(e)
     return rule_config_file, admin_file
 
-def establish_db_conn1(table_name, platform_name):
-    """
-    Connects with cloud database and returns dataframe
-    """
-    conn = ""
-    if platform_name == 'snowflake':
-        print("2222222222222222222222222222222")
-        account_name = "jq62272.central-india.azure"
-        # user_name = get_credentials("snowflakeusername")
-        # password = get_credentials("snowflakepassword")
-        user_name = "DATAQUALITYCHECK"
-        password = "Admin@123"
-        database = "SNOWFLAKE_SAMPLE_DATA"
-        warehouse = "TEST"
-        print("4444444444444444444444444")
-        conn = snowflake.connector.connect(
-            account=account_name,
-            user=user_name,
-            password=password,
-            database=database,
-            warehouse=warehouse,
-            schema="TPCDS_SF100TCL"
-        )
-        print("33333333333333333333333")
-    with conn.cursor() as cursor:
-        print("11111111111111111111111111111111111111111111111111")
-        cursor.execute(("SELECT * FROM " + table_name))
-        col_names = [desc[0] for desc in cursor.description]
-        rows = []
-        for row in cursor:
-            row_to_list = [elem for elem in row]
-            rows.append(row_to_list)
-        df = pd.DataFrame(rows, columns=col_names)
-        print(df, 111111111111111111111)
-        return df
-    # except:
-    #     return False
-
-establish_db_conn1("CALL_CENTER", "snowflake")
+# def establish_db_conn1(table_name, platform_name):
+#     """
+#     Connects with cloud database and returns dataframe
+#     """
+#     conn = ""
+#     if platform_name == 'snowflake':
+#         print("2222222222222222222222222222222")
+#         account_name = "jq62272.central-india.azure"
+#         # user_name = get_credentials("snowflakeusername")
+#         # password = get_credentials("snowflakepassword")
+#         user_name = "DATAQUALITYCHECK"
+#         password = "Admin@123"
+#         database = "SNOWFLAKE_SAMPLE_DATA"
+#         warehouse = "TEST"
+#         print("4444444444444444444444444")
+#         conn = snowflake.connector.connect(
+#             account=account_name,
+#             user=user_name,
+#             password=password,
+#             database=database,
+#             warehouse=warehouse,
+#             schema="TPCDS_SF100TCL"
+#         )
+#         print("33333333333333333333333")
+#     with conn.cursor() as cursor:
+#         print("11111111111111111111111111111111111111111111111111")
+#         cursor.execute(("SELECT * FROM " + table_name))
+#         col_names = [desc[0] for desc in cursor.description]
+#         rows = []
+#         for row in cursor:
+#             row_to_list = [elem for elem in row]
+#             rows.append(row_to_list)
+#         df = pd.DataFrame(rows, columns=col_names)
+#         print(df, 111111111111111111111)
+#         return df
+#     # except:
+#     #     return False
+#
+# establish_db_conn1("CALL_CENTER", "snowflake")

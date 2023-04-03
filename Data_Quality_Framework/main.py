@@ -282,12 +282,12 @@ def call_checks(admin_config, i, rule_id, validation_column, execution_parameter
     # Column Nullability Check
     if admin_config["rule_name"][i] == 'not_null':
         output_message = column_nullability_check(admin_config["config_id"][i], rule_id,
-                                                dataset,
-                                                validation_column, source_file, table,
-                                                execution_parameter, admin_config["DQ_CHECK_STAGE"][i])
+                                                  dataset,
+                                                  validation_column, source_file, table,
+                                                  execution_parameter, admin_config["DQ_CHECK_STAGE"][i])
         write_output_data(output_message, out_file_path)
         if detailed_output_check == "Y":
-           write_detailed_output(output_message, out_file_path)
+            write_detailed_output(output_message, out_file_path)
 
 
     # Checking Duplicate
